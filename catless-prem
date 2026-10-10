@@ -12325,7 +12325,7 @@ return ad.c
 end
 end
 do -- ae
-local function fn35()local I,W= tbl17 .f(), tbl17 .ad(); tbl17 .a(); tbl17 .r();local l={};l.__index=l;local N={AutoSave=false,AutoSaveConfigName=nil,AutoLoad=false,AutoLoadConfigName=nil,Keybind="RightShift",Size=nil,Position=nil,KeybindsListPosition=nil,WatermarkPosition=nil,MobileButtonPositions=nil,ShowKeybinds=nil,ShowWatermark=nil,MenuKeybindInList=nil,HideMobileMenuButton=nil,SilentLoad=nil};local function P(a)return(a:gsub("%.json$",""));end;local function a(e)if type(e)~="table"then return nil;end;local c,E=e[1],e[2];if type(c)~="number"or type(E)~="number"then return nil;end;if c~=c or E~=E then return nil;end;return{c,E};end;local function e(c)if type(c)~="table"then return nil;end;local E,p={},false;for T,t in c,nil,nil do if type(T)~="string"or T==""then continue;end;local c=a(t);if c==nil then continue;end;E[T]=c;p=true;end;return p and E or nil;end;local function c(E)local p=table.clone(N);if type(E)~="table"then return p;end;if type(E.AutoSave)=="boolean"then p.AutoSave=E.AutoSave;end;if type(E.AutoSaveConfigName)=="string"then p.AutoSaveConfigName=P(E.AutoSaveConfigName);end;if type(E.AutoLoad)=="boolean"then p.AutoLoad=E.AutoLoad;end;if type(E.AutoLoadConfigName)=="string"then p.AutoLoadConfigName=P(E.AutoLoadConfigName);end;if type(E.Keybind)=="string"then p.Keybind=E.Keybind;end;if type(E.ShowKeybinds)=="boolean"then p.ShowKeybinds=E.ShowKeybinds;end;if type(E.ShowWatermark)=="boolean"then p.ShowWatermark=E.ShowWatermark;end;if type(E.MenuKeybindInList)=="boolean"then p.MenuKeybindInList=E.MenuKeybindInList;end;if type(E.HideMobileMenuButton)=="boolean"then p.HideMobileMenuButton=E.HideMobileMenuButton;end;if type(E.SilentLoad)=="boolean"then p.SilentLoad=E.SilentLoad;end;p.Size=a(E.Size);p.Position=a(E.Position);p.KeybindsListPosition=a(E.KeybindsListPosition);p.WatermarkPosition=a(E.WatermarkPosition);p.MobileButtonPositions=e(E.MobileButtonPositions);return p;end;local function P(a)if type(a)~="table"then return{};end;local e=table.clone(a);a=e.autosave;e.autosave=nil;if type(a)=="string"then e.AutoSave=true;e.AutoSaveConfigName=a;end;a=e.autoload;e.autoload=nil;if type(a)=="string"then e.AutoLoad=true;e.AutoLoadConfigName=a;end;return e;end;local function a(e)if type(e)~="table"then return{};end;local E,p=table.clone(e),{"autoSave","autoSaveConfigName","autoLoad","autoLoadConfigName","keybind","size","position","keybindsListPosition","watermarkPosition","mobileButtonPositions","showKeybinds","showWatermark","menuKeybindInList","hideMobileMenuButton","silentLoad"};for T,T in p,nil,nil do e=string.upper(string.sub(T,1,1))..string.sub(T,2);if E[e]==nil then E[e]=E[T];end;E[T]=nil;end;return E;end;l.new=function(e)return setmetatable({_errorReporter=W.new(),_manager=I.new({DefaultConfig=N,CurrentVersion=3,SavePath=e,Deserialize=c,Migrations={[1]=P,[2]=a}})},l);end;l.Load=function(I)if not I._manager:Exists("general")then return I._manager:Reset();end;local W=I._manager:LoadFromFile("general");if W.Ok then return W.Value;end;I._errorReporter:Report(W.Error);return I._manager:Reset();end;l.Save=function(I,W)I._manager:SetData(W);return I._errorReporter:ReportResult(I._manager:SaveToFile("general"));end;l.Destroy=function(I)I._errorReporter:Destroy();end;return l;end
+local function fn35()local I,W= tbl17 .f(), tbl17 .ad(); tbl17 .a(); tbl17 .r();local l={};l.__index=l;local N={AutoSave=false,AutoSaveConfigName=nil,AutoLoad=false,AutoLoadConfigName=nil,Keybind="RightShift",Size=nil,Position=nil,KeybindsListPosition=nil,WatermarkPosition=nil,MobileButtonPositions=nil,ShowKeybinds=nil,ShowWatermark=nil,MenuKeybindInList=nil,HideMobileMenuButton=nil,SilentLoad=false};local function P(a)return(a:gsub("%.json$",""));end;local function a(e)if type(e)~="table"then return nil;end;local c,E=e[1],e[2];if type(c)~="number"or type(E)~="number"then return nil;end;if c~=c or E~=E then return nil;end;return{c,E};end;local function e(c)if type(c)~="table"then return nil;end;local E,p={},false;for T,t in c,nil,nil do if type(T)~="string"or T==""then continue;end;local c=a(t);if c==nil then continue;end;E[T]=c;p=true;end;return p and E or nil;end;local function c(E)local p=table.clone(N);if type(E)~="table"then return p;end;if type(E.AutoSave)=="boolean"then p.AutoSave=E.AutoSave;end;if type(E.AutoSaveConfigName)=="string"then p.AutoSaveConfigName=P(E.AutoSaveConfigName);end;if type(E.AutoLoad)=="boolean"then p.AutoLoad=E.AutoLoad;end;if type(E.AutoLoadConfigName)=="string"then p.AutoLoadConfigName=P(E.AutoLoadConfigName);end;if type(E.Keybind)=="string"then p.Keybind=E.Keybind;end;if type(E.ShowKeybinds)=="boolean"then p.ShowKeybinds=E.ShowKeybinds;end;if type(E.ShowWatermark)=="boolean"then p.ShowWatermark=E.ShowWatermark;end;if type(E.MenuKeybindInList)=="boolean"then p.MenuKeybindInList=E.MenuKeybindInList;end;if type(E.HideMobileMenuButton)=="boolean"then p.HideMobileMenuButton=E.HideMobileMenuButton;end;if type(E.SilentLoad)=="boolean"then p.SilentLoad=E.SilentLoad;end;p.Size=a(E.Size);p.Position=a(E.Position);p.KeybindsListPosition=a(E.KeybindsListPosition);p.WatermarkPosition=a(E.WatermarkPosition);p.MobileButtonPositions=e(E.MobileButtonPositions);return p;end;local function P(a)if type(a)~="table"then return{};end;local e=table.clone(a);a=e.autosave;e.autosave=nil;if type(a)=="string"then e.AutoSave=true;e.AutoSaveConfigName=a;end;a=e.autoload;e.autoload=nil;if type(a)=="string"then e.AutoLoad=true;e.AutoLoadConfigName=a;end;return e;end;local function a(e)if type(e)~="table"then return{};end;local E,p=table.clone(e),{"autoSave","autoSaveConfigName","autoLoad","autoLoadConfigName","keybind","size","position","keybindsListPosition","watermarkPosition","mobileButtonPositions","showKeybinds","showWatermark","menuKeybindInList","hideMobileMenuButton","silentLoad"};for T,T in p,nil,nil do e=string.upper(string.sub(T,1,1))..string.sub(T,2);if E[e]==nil then E[e]=E[T];end;E[T]=nil;end;return E;end;l.new=function(e)return setmetatable({_errorReporter=W.new(),_manager=I.new({DefaultConfig=N,CurrentVersion=3,SavePath=e,Deserialize=c,Migrations={[1]=P,[2]=a}})},l);end;l.Load=function(I)if not I._manager:Exists("general")then return I._manager:Reset();end;local W=I._manager:LoadFromFile("general");if W.Ok then return W.Value;end;I._errorReporter:Report(W.Error);return I._manager:Reset();end;l.Save=function(I,W)I._manager:SetData(W);return I._errorReporter:ReportResult(I._manager:SaveToFile("general"));end;l.Destroy=function(I)I._errorReporter:Destroy();end;return l;end
 
 tbl17.ae = function()
 local ae = tbl17.cache.ae
@@ -16852,7 +16852,7 @@ end
 
 local function fn37(arg, arg2)
 return v116.new(function(arg3)
-local str7 = string.format("%s/%s", "catless/fonts", tostring(arg2.FileName))
+local str7 = string.format("%s/%s", "kiciacat premium/fonts", tostring(arg2.FileName))
 
 if not isfile(str7) then
 local v120, v121 = v107(function()
@@ -16893,7 +16893,7 @@ name = arg,
 faces = { { name = "Regular", weight = arg2.Weight.Value, style = fn36(arg2.Style), assetId = v121 } },
 }
 
-local str8 = string.format("%s/%s.json", "catless/fonts", tostring(arg))
+local str8 = string.format("%s/%s.json", "kiciacat premium/fonts", tostring(arg))
 local v122, v123 = v107(writefile, str8, v119:JSONEncode(tbl20))
 
 if not v122 then
@@ -16928,7 +16928,7 @@ for k, v120 in tbl18, nil, nil do
 arg._fontByName[k] = Font.fromEnum(v120)
 end
 
-v118("catless/fonts")
+v118("kiciacat premium/fonts")
 local tbl20 = {}
 local flag19 = true
 
@@ -17816,8 +17816,14 @@ Label = v86[142],
 Default = stateData ~= nil and stateData.SilentLoad == true,
 OnChanged = function(silentLoad)
 if stateData ~= nil then
-stateData.SilentLoad = silentLoad
+stateData.SilentLoad = silentLoad == true
 arg2:SaveState()
+elseif arg2 and arg2.GetStateData then
+local sd = arg2:GetStateData()
+if sd then
+sd.SilentLoad = silentLoad == true
+arg2:SaveState()
+end
 end
 end,
 })
@@ -19411,6 +19417,7 @@ Labels = { OnBestTarget = "On Best Target", OnAllTargets = "On All Targets" },
 
 v117:AddToggle({ Label = "Show Indicator", Config = { "SilentAim", "Manipulate", "ShowIndicator" } })
 end,
+
 }
 
 return {
@@ -21536,7 +21543,7 @@ return (v117:Add(v115.new({
 DefaultConfig = tbl17.bm(),
 CurrentVersion = 17,
 LegacyVersion = 1,
-SavePath = "catless/rivals/configs/",
+SavePath = "kiciacat premium/rivals/configs/",
 Migrations = tbl17.bF(),
 Serialize = v116.normalize,
 Deserialize = v118.deserialize,
@@ -22903,14 +22910,75 @@ local GuiNameSpoofer = v115.new("player_spoofer.GuiNameSpoofer")
 local tbl18 = {}
 local tbl19 = {}
 local playerIdentities = arg._playerIdentities
-local function fn36(...) end
-local function fn37(I,W)if W=="Name"then return  playerIdentities :GetPresented(I);end;return  playerIdentities :GetPresentedDisplay(I);end
-local function fn38(l,I,W)local N,P,a={},1,0;while true do local e,c=l:find(I,P,true);if e==nil or c==nil then break;end;if P<e then table.insert(N,l:sub(P,e-1));end;table.insert(N,W);a+=1;P=c+1;end;if a==0 then return l,0;end;if P<=#l then table.insert(N,l:sub(P));end;return table.concat(N),a;end
-local function fn39(I)local W={};local N=I;for I,P in  tbl19 ,nil,nil do I= fn37 (P.Player,P.Kind);local a,e= fn38 (N,P.Name,I);if e>0 then W[P.Player]=true;N=a;end;end;return W,N;end
-local function fn40(...) end
-local function fn41(...) end
+local function fn36()
+table.clear(tbl19)
+for _, plr in v117:GetPlayers() do
+local n = plr.Name
+if type(n) == "string" and n ~= "" then
+table.insert(tbl19, { Player = plr, Name = n, Kind = "Name" })
+end
+local dn = plr.DisplayName
+if type(dn) == "string" and dn ~= "" and dn ~= n then
+table.insert(tbl19, { Player = plr, Name = dn, Kind = "DisplayName" })
+end
+end
+end
+local function fn37(I,W)
+-- W is which ORIGINAL string we are replacing (Name vs DisplayName label in UI)
+-- Always prefer the matching presented field; fall back so both fields update visible text
+if W=="Name" then
+local presented = playerIdentities:GetPresented(I)
+return presented
+end
+local presented = playerIdentities:GetPresentedDisplay(I)
+return presented
+end
+local function fn38(l,I,W)if type(I)~="string" or I=="" or type(W)~="string" then return l,0 end;local N,P,a={},1,0;while true do local e,c=l:find(I,P,true);if e==nil or c==nil then break;end;if P<e then table.insert(N,l:sub(P,e-1));end;table.insert(N,W);a+=1;P=c+1;end;if a==0 then return l,0;end;if P<=#l then table.insert(N,l:sub(P));end;return table.concat(N),a;end
+local function fn39(I)local W={};local N=I;local list={};for _,P in tbl19,nil,nil do table.insert(list,P) end;table.sort(list,function(a,b) return #tostring(a.Name)>#tostring(b.Name) end);for _,P in ipairs(list) do local presented=fn37(P.Player,P.Kind);if type(presented)=="string" and presented~="" and presented~=P.Name then local a,e=fn38(N,P.Name,presented);if e>0 then W[P.Player]=true;N=a;end;end;end;return W,N;end
+local function fn41(I,W)
+if W==nil then return end
+if W.SpoofedText~=nil and W.OriginalText~=nil and I.Text==W.SpoofedText then
+I.Text=W.OriginalText
+end
+end
+local function fn40(I)
+local N=tbl18[I]
+if N==nil then return end
+local original=N.OriginalText
+if original==nil then
+original=I.Text
+N.OriginalText=original
+end
+local playerSet,spoofed=fn39(original)
+N.Tracked={PlayerSet=playerSet,OriginalText=original,SpoofedText=spoofed}
+if spoofed~=nil and spoofed~=I.Text then
+N._writing=true
+I.Text=spoofed
+N._writing=false
+end
+end
 local function fn42(I,W)local N= tbl18 [I];if N==nil then return;end; tbl18 [I]=nil;N.TextChangedConnection:Disconnect();N.DestroyingConnection:Disconnect();if W and N.Tracked~=nil then  fn41 (I,N.Tracked);end;end
-local function fn43(...) end
+local function fn43(I)
+if tbl18[I]~=nil then return end
+if not I:IsA("TextLabel") and not I:IsA("TextButton") then return end
+local entry={
+OriginalText=I.Text,
+Tracked=nil,
+_writing=false,
+}
+entry.TextChangedConnection=I:GetPropertyChangedSignal("Text"):Connect(function()
+if entry._writing then return end
+-- If game rewrote text, treat current as new original only when it doesn't match our spoof
+if entry.Tracked~=nil and I.Text==entry.Tracked.SpoofedText then return end
+entry.OriginalText=I.Text
+fn40(I)
+end)
+entry.DestroyingConnection=I.Destroying:Connect(function()
+fn42(I,false)
+end)
+tbl18[I]=entry
+fn40(I)
+end
 fn36()
 
 v116(GuiNameSpoofer, function(arg2, arg3)
@@ -23132,15 +23200,21 @@ end
 
 index2._Apply = function(arg, arg2)
 local v122 = v119(arg2)
+local nameOn = v122.Name.Enabled and v122.Name.Value ~= ""
+local dispOn = v122.DisplayName.Enabled and v122.DisplayName.Value ~= ""
 
-if v122.Name.Enabled and v122.Name.Value ~= "" then
+-- Username (Name)
+if nameOn then
 arg._playerIdentities:SetPresented(arg2, v122.Name.Value)
 else
 arg._playerIdentities:ClearPresented(arg2)
 end
 
-if v122.DisplayName.Enabled and v122.DisplayName.Value ~= "" then
+-- Display name: explicit field wins; else mirror Name so Rivals UI (mostly DisplayName) updates
+if dispOn then
 arg._playerIdentities:SetPresentedDisplay(arg2, v122.DisplayName.Value)
+elseif nameOn then
+arg._playerIdentities:SetPresentedDisplay(arg2, v122.Name.Value)
 else
 arg._playerIdentities:ClearPresentedDisplay(arg2)
 end
@@ -41931,7 +42005,7 @@ tbl17.g()
 tbl17.eE()
 local v117 = tbl17.e2()
 local v118 = tbl17.k()
-local str7 = string.format("%s/states", "catless/rivals/cosmetics")
+local str7 = string.format("%s/states", "kiciacat premium/rivals/cosmetics")
 
 local tbl18 = {
 Version = v86[56],
@@ -42014,7 +42088,7 @@ _configManager = v115.new({
 DefaultConfig = v120,
 CurrentVersion = v86[56],
 Migrations = { fn36 },
-SavePath = "catless/rivals/cosmetics",
+SavePath = "kiciacat premium/rivals/cosmetics",
 Deserialize = fn38,
 }),
 _stateConfig = v119,
@@ -42486,7 +42560,7 @@ local function fn38(arg)
 return v116.new(function(arg2, arg3)
 local v119 = str7(arg)
 local str8 = fn36(arg) or "ogg"
-local str9 = string.format("%s/%s.%s", "catless/cache", tostring(v119), tostring(str8))
+local str9 = string.format("%s/%s.%s", "kiciacat premium/cache", tostring(v119), tostring(str8))
 
 if not isfile(str9) then
 local v120, v121 = v107(function()
@@ -42499,7 +42573,7 @@ arg3(string.format("failed requesting '%s': %s", tostring(arg), v122(v121)))
 return
 end
 
-local cache = v118("catless/cache")
+local cache = v118("kiciacat premium/cache")
 if not cache.Ok then
 arg3(string.format("failed ensuring folder path: %s", tostring(cache.Error.Detail)))
 return
@@ -42619,7 +42693,7 @@ local v120 = tbl17.ay()
 local v121 = tbl17.a()
 local v122 = tbl17.g()
 local v123 = cloneref(game:GetService("ContentProvider"))
-local str7 = string.format("%s/%s", "catless", "image_storage.json")
+local str7 = string.format("%s/%s", "kiciacat premium", "image_storage.json")
 
 local function fn36(arg)
 return arg:match("^%s*(.-)%s*$") or ""
@@ -42667,7 +42741,7 @@ local v124 = v119.new()
 
 local tbl18 = {
 _errorReporter = v124,
-_configManager = v116.new({ DefaultConfig = v118, CurrentVersion = v86[63], SavePath = "catless", Deserialize = fn37 }),
+_configManager = v116.new({ DefaultConfig = v118, CurrentVersion = v86[63], SavePath = "kiciacat premium", Deserialize = fn37 }),
 _customAssets = v117.new(),
 _data = table.clone(v118),
 _names = {},
@@ -43493,13 +43567,13 @@ local flag19 = false
 
 local function fn41(arg, arg2)
 if not flag19 then
-if not v115("catless/rivals/crosshair_textures").Ok then
+if not v115("kiciacat premium/rivals/crosshair_textures").Ok then
 return false
 end
 flag19 = true
 end
 
-local str7 = string.format("%s/%s.png", "catless/rivals/crosshair_textures", tostring(arg))
+local str7 = string.format("%s/%s.png", "kiciacat premium/rivals/crosshair_textures", tostring(arg))
 
 if v107(writefile, str7, arg2) then
 local v117, v118 = v107(getcustomasset, str7)
@@ -50236,7 +50310,7 @@ local v121 = tbl17.a()
 tbl17.gt()
 local v122 = tbl17.g()
 local v123 = cloneref(game:GetService("ContentProvider"))
-local str7 = string.format("%s/%s", "catless", "sfx_sounds.json")
+local str7 = string.format("%s/%s", "kiciacat premium", "sfx_sounds.json")
 
 local function fn36(arg)
 return arg:match("^%s*(.-)%s*$") or ""
@@ -50283,7 +50357,7 @@ local v124 = v119.new()
 
 local tbl18 = {
 _errorReporter = v124,
-_configManager = v116.new({ DefaultConfig = v118, CurrentVersion = 1, SavePath = "catless", Deserialize = fn37 }),
+_configManager = v116.new({ DefaultConfig = v118, CurrentVersion = 1, SavePath = "kiciacat premium", Deserialize = fn37 }),
 _customAssets = v117.new(),
 _data = table.clone(v118),
 _names = {},
@@ -50455,7 +50529,7 @@ local v115 = tbl17.a()
 tbl17.gv()
 local v116 = tbl17.bG()
 local v117 = cloneref(game:GetService("HttpService"))
-local str7 = string.format("%s/cache.json", "catless/rivals/esp_images")
+local str7 = string.format("%s/cache.json", "kiciacat premium/rivals/esp_images")
 local tbl18 = { ".png", ".jpg", ".jpeg", ".webp", ".bmp" }
 
 local function fn36(arg, arg2)
@@ -50573,8 +50647,8 @@ end
 end
 end
 
-if type(listfiles) == "function" and isfolder("catless/rivals/esp_images") then
-local v118, v119 = v107(listfiles, "catless/rivals/esp_images")
+if type(listfiles) == "function" and isfolder("kiciacat premium/rivals/esp_images") then
+local v118, v119 = v107(listfiles, "kiciacat premium/rivals/esp_images")
 
 if v118 and type(v119) == "table" then
 for _, v120 in v119, nil, nil do
@@ -50605,7 +50679,7 @@ end
 
 return {
 MigrateSounds = function(arg)
-local json = fn36("catless/rivals/custom_sounds.json", "MigrateSounds")
+local json = fn36("kiciacat premium/rivals/custom_sounds.json", "MigrateSounds")
 if not json.Ok then
 return json
 end
@@ -53279,7 +53353,7 @@ local v117 = tbl17.ad()
 local v118 = tbl17.a()
 local v119 = tbl17.g()
 tbl17.gW()
-local str7 = string.format("%s/%s", "catless/rivals", "skyboxes.json")
+local str7 = string.format("%s/%s", "kiciacat premium/rivals", "skyboxes.json")
 
 local tbl18 = {
 SkyboxBk = "string",
@@ -53362,7 +53436,7 @@ _errorReporter = v117.new(),
 _configManager = v115.new({
 DefaultConfig = v116,
 CurrentVersion = v86[63],
-SavePath = "catless/rivals",
+SavePath = "kiciacat premium/rivals",
 Deserialize = fn39,
 }),
 _data = table.clone(v116),
@@ -60324,7 +60398,7 @@ return je.c
 end
 end
 do -- jf
-local function fn35()local I,W= tbl17 .bG(), tbl17 .aE(); tbl17 .hN();local N,P,a,e,c,E,p,T= tbl17 .h_(), tbl17 .ij(), tbl17 .ip(), tbl17 .n(), tbl17 .iw(), tbl17 .i_(), tbl17 .je(),cloneref(game:GetService("Players")).LocalPlayer;return function(l)if getgenv().KhForceMobileUi==true then W.ForceMobileLayout();end;local t=W.Menu.new({Icon=K.Logo,Title=string.format("CatLess | Rivals | %s",tostring("Premium Build")),Directory="catless/rivals",Config=l.ReactiveStoreAdapter,ColorAnimation=l.ColorAnimation,Persistence=I,State=l.GeneralState,StateData=l.GeneralStateData,OnUnload=function()e:Destroy();end});e:Add(t);local I=l.PlayerIdentities;t:SetWatermarkUsername(I:GetPresented(T));e:Connect(I.IdentityChanged,function(W)if W==T then t:SetWatermarkUsername(I:GetPresented(T));end;end);P(l,t);E(l,t);c(l,t);N(l,t);p(l,t);a(l,t);t:AddSettingsTab();t:SetVisible(not(l.GeneralStateData.SilentLoad==true),true);end;end
+local function fn35()local I,W= tbl17 .bG(), tbl17 .aE(); tbl17 .hN();local N,P,a,e,c,E,p,T= tbl17 .h_(), tbl17 .ij(), tbl17 .ip(), tbl17 .n(), tbl17 .iw(), tbl17 .i_(), tbl17 .je(),cloneref(game:GetService("Players")).LocalPlayer;return function(l)if getgenv().KhForceMobileUi==true then W.ForceMobileLayout();end;local t=W.Menu.new({Icon=K.Logo,Title=string.format("CatLess | Rivals | %s",tostring("Premium Build")),Directory="kiciacat premium/rivals",Config=l.ReactiveStoreAdapter,ColorAnimation=l.ColorAnimation,Persistence=I,State=l.GeneralState,StateData=l.GeneralStateData,OnUnload=function()e:Destroy();end});e:Add(t);local I=l.PlayerIdentities;t:SetWatermarkUsername(I:GetPresented(T));e:Connect(I.IdentityChanged,function(W)if W==T then t:SetWatermarkUsername(I:GetPresented(T));end;end);P(l,t);E(l,t);c(l,t);N(l,t);p(l,t);a(l,t);t:AddSettingsTab();local _silent=l.GeneralStateData~=nil and l.GeneralStateData.SilentLoad==true;t:SetVisible(not _silent,true);if _silent then task.defer(function()pcall(function()t:SetVisible(false,true)end)end);task.delay(0.35,function()pcall(function()t:SetVisible(false,true)end)end);end;end;end
 
 tbl17.jf = function()
 local jf = tbl17.cache.jf
@@ -63954,7 +64028,7 @@ local v120 = v119.new()
 local tbl18 = {
 _trove = v120,
 _store = v115.new({
-SavePath = "catless/rivals/movement_recorder",
+SavePath = "kiciacat premium/rivals/movement_recorder",
 CurrentVersion = 1,
 Serialize = v116.encode,
 Deserialize = v116.decode,
@@ -66309,11 +66383,11 @@ local CATLESS_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAADL1t+KAAAQAElEQV
 --  anti-cheat bypass (b7). Kicia's online user service (eZ) is offline.
 --==========================================================================
 local GlobalTrove = tbl17.n()
-tbl17.w().ensureStorageDirectories("catless/rivals")
-tbl17.w().ensureStorageDirectories("catless/fonts")
-tbl17.w().ensureStorageDirectories("catless/cache")
+tbl17.w().ensureStorageDirectories("kiciacat premium/rivals")
+tbl17.w().ensureStorageDirectories("kiciacat premium/fonts")
+tbl17.w().ensureStorageDirectories("kiciacat premium/cache")
 for _, sub in ipairs({ "cosmetics/states", "crosshair_textures", "esp_images", "movement_recorder" }) do
-    tbl17.w().ensureStorageDirectories("catless/rivals/" .. sub)
+    tbl17.w().ensureStorageDirectories("kiciacat premium/rivals/" .. sub)
 end
 
 --  CatLess logo: written to disk once per load and turned into an asset id
@@ -66338,7 +66412,7 @@ do
     end
     local wrf, gca = K.fn("writefile"), K.fn("getcustomasset") or K.fn("getsynasset")
     if wrf and gca then
-        local path = "catless/catless_logo.png"
+        local path = "kiciacat premium/catless_logo.png"
         local ok = pcall(wrf, path, decode(CATLESS_LOGO_B64))
         local ok2, id = pcall(gca, path)
         if ok and ok2 and type(id) == "string" and id ~= "" then K.Logo = id end
@@ -66360,7 +66434,7 @@ local boot = (function()
         tbl17.bI().Notifications))
 
     local reporter = GlobalTrove:Add(tbl17.ad().new())
-    local state = GlobalTrove:Add(tbl17.ae().new("catless/rivals"))
+    local state = GlobalTrove:Add(tbl17.ae().new("kiciacat premium/rivals"))
     local stateData = state:Load()
     if stateData.AutoLoad and stateData.AutoLoadConfigName ~= nil then
         local r = reporter:ReportResult(store:LoadFromFile(stateData.AutoLoadConfigName))
@@ -66374,6 +66448,57 @@ local boot = (function()
             tbl17.aB().get():Notify("Some saved settings could not be restored and were reset to defaults")
         end
     end
+
+    -- Re-run After Teleport (AutoExecuteScript)
+    pcall(function()
+        local FOLDER = "kiciacat premium"
+        local function getQOT()
+            if type(queue_on_teleport) == "function" then return queue_on_teleport end
+            if syn and type(syn.queue_on_teleport) == "function" then return syn.queue_on_teleport end
+            if fluxus and type(fluxus.queue_on_teleport) == "function" then return fluxus.queue_on_teleport end
+            if getgenv and type(getgenv().queue_on_teleport) == "function" then return getgenv().queue_on_teleport end
+            return nil
+        end
+        local function resolveCode()
+            local src = getgenv().CatLess_Source
+            if type(src) == "string" and #src > 50 then return src end
+            local url = getgenv().CatLess_Url
+            if type(url) ~= "string" or url == "" then
+                pcall(function()
+                    if isfile and isfile(FOLDER .. "/autoexec_url.txt") then
+                        url = (readfile(FOLDER .. "/autoexec_url.txt") or ""):gsub("%s+", "")
+                    end
+                end)
+            end
+            if type(url) == "string" and #url > 5 then
+                return string.format("getgenv().CatLess_Url=%q\nloadstring(game:HttpGet(%q))()", url, url)
+            end
+            return nil
+        end
+        local function applyAutoExec(enabled)
+            if enabled ~= true then return end
+            local q = getQOT()
+            if not q then
+                pcall(function() tbl17.aB().get():Notify("Re-run After Teleport: executor has no queue_on_teleport") end)
+                return
+            end
+            local code = resolveCode()
+            if not code then
+                pcall(function() tbl17.aB().get():Notify("Set getgenv().CatLess_Url (raw script link) or write kiciacat premium/autoexec_url.txt") end)
+                return
+            end
+            pcall(q, code)
+            pcall(function() tbl17.aB().get():Notify("Re-run After Teleport armed") end)
+        end
+        local ae = store.Data and store.Data.AutoExecuteScript
+        applyAutoExec(ae and ae.Enabled)
+        pcall(function()
+            store:GetPropertyChangedSignal({ "AutoExecuteScript", "Enabled" }):Connect(function(v)
+                applyAutoExec(v == true)
+            end)
+        end)
+    end)
+
 
     local Theme = tbl17.A()
     local theme = store.Data.Theme
