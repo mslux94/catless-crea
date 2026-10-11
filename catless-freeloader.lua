@@ -19719,7 +19719,7 @@ return bd.c
 end
 end
 do -- be
-local function fn35()local I= tbl17 .i().atomic; tbl17 .aZ();local W,N,P= tbl17 .aU(), tbl17 .aW(), tbl17 .aY();return{Aimbot=W.buildConfig(),SilentAim=N.buildConfig(),Triggerbot=P.buildConfig(),Ragebot={Enabled=false,Keybind={State=false,Kind="Always",Bind=nil,ShowInList=true,Invisible=false},Stability=0.15,ShootFrames=1,PrioritizeHackers=false,Weapons={Priority=I({"Primary","Secondary","Melee"}),Enabled={Primary=true,Secondary=true,Melee=true},OnEmpty="SwapOrReload"},Evasion={Mode="Random",Random={AnchorFromCharacter=false,BaseRadius=100,RadiusRandomFactor=0.5},ProjectileBreaker={DepthForward={Min=0,Max=4},DepthForwardFrequency=5,DepthUp={Min=0,Max=5.5},DepthUpFrequency=5,RepositionInterval=0.3,FallbackAnchorFromCharacter=false,FallbackBaseRadius=100,FallbackRadiusRandomFactor=0.5},Translocate={Offset=-5}},UtilizeHealthLead=false},Flickbot={Enabled=false,Keybind={State=false,Kind="Hold",Bind=nil,ShowInList=true,Invisible=false},Shoot=false,ShotDelay=0,Cooldown=250,FlickDuration=110,Curvature=12,Humanness=30}};end
+local function fn35()local I= tbl17 .i().atomic; tbl17 .aZ();local W,N,P= tbl17 .aU(), tbl17 .aW(), tbl17 .aY();return{Aimbot=W.buildConfig(),SilentAim=N.buildConfig(),Triggerbot=P.buildConfig(),Ragebot={Enabled=false,Keybind={State=false,Kind="Always",Bind=nil,ShowInList=true,Invisible=false},Stability=0.15,ShootFrames=1,PrioritizeHackers=false,Weapons={Priority=I({"Primary","Secondary","Melee"}),Enabled={Primary=true,Secondary=true,Melee=true},OnEmpty="SwapOrReload"},Evasion={Mode="Random",Random={AnchorFromCharacter=false,BaseRadius=100,RadiusRandomFactor=0.5},ProjectileBreaker={DepthForward={Min=0,Max=4},DepthForwardFrequency=5,DepthUp={Min=0,Max=5.5},DepthUpFrequency=5,RepositionInterval=0.3,FallbackAnchorFromCharacter=false,FallbackBaseRadius=100,FallbackRadiusRandomFactor=0.5},Translocate={Offset=-5}},UtilizeHealthLead=false,AntiAim={Enabled=false,Mode="Spin",Speed=12,JitterAmount=35},StatusIndicator={Enabled=false,OffsetX=0,OffsetY=72,Color=Color3.fromRGB(160,200,230),KillingColor=Color3.fromRGB(255,90,90),TextSize=18,Font="ProggyTiny"}},Flickbot={Enabled=false,Keybind={State=false,Kind="Hold",Bind=nil,ShowInList=true,Invisible=false},Shoot=false,ShotDelay=0,Cooldown=250,FlickDuration=110,Curvature=12,Humanness=30}};end
 
 tbl17.be = function()
 local be = tbl17.cache.be
@@ -58909,7 +58909,7 @@ return ie.c
 end
 end
 do -- ih
-local function fn35() tbl17 .aE();local I= tbl17 .h6();local function l(W)I(W,"Enable Ragebot",{"Always","Toggle","Hold"},{"Ragebot"},true);W:AddSlider({Label="Stability",Min=0,Max=1.5,Step=0.001,Config={"Ragebot","Stability"}});W:AddSlider({Label="Shoot Frames",Min=1,Max=5,Config={"Ragebot","ShootFrames"}});end;local function I(W)local N={"Primary","Secondary","Melee"};for P,P in N,nil,nil do W:AddToggle({Label=string.format("%s Enabled",tostring(P)),Config={"Ragebot","Weapons","Enabled",P}});end;W:AddOrderedList({Label="Weapon Priority",Items=N,Default=N,Config={"Ragebot","Weapons","Priority"}});W:AddDropdown({Label="On Empty",Options={"Reload","Swap","SwapOrReload"},Labels={SwapOrReload="Swap or Reload"},Config={"Ragebot","Weapons","OnEmpty"}});end;local function N(P)local a=P:AddDropdown({Label="Evasion Mode",Options={"Off","Random"},Config={"Ragebot","Evasion","Mode"}});local e=P:AddGroup({Source=a,Option="Random"});e:AddToggle({Label="Character Origin",Config={"Ragebot","Evasion","Random","AnchorFromCharacter"}});e:AddSlider({Label="Base Radius",Min=5,Max=100000000,Config={"Ragebot","Evasion","Random","BaseRadius"}});e:AddSlider({Label="Random Factor",Min=0,Max=1,Step=0.1,Config={"Ragebot","Evasion","Random","RadiusRandomFactor"}});end;return function(W)l(W:AddSection({Title="Activation",Side="left"}));I(W:AddSection({Title="Weapon Strategy",Side="left"}));N(W:AddSection({Title="Evasion",Side="right"}));end;end
+local function fn35() tbl17 .aE();local I= tbl17 .h6();local function l(W)I(W,"Enable Ragebot",{"Always","Toggle","Hold"},{"Ragebot"},true);W:AddSlider({Label="Stability",Min=0,Max=1.5,Step=0.001,Config={"Ragebot","Stability"}});W:AddSlider({Label="Shoot Frames",Min=1,Max=5,Config={"Ragebot","ShootFrames"}});end;local function I(W)local N={"Primary","Secondary","Melee"};for P,P in N,nil,nil do W:AddToggle({Label=string.format("%s Enabled",tostring(P)),Config={"Ragebot","Weapons","Enabled",P}});end;W:AddOrderedList({Label="Weapon Priority",Items=N,Default=N,Config={"Ragebot","Weapons","Priority"}});W:AddDropdown({Label="On Empty",Options={"Reload","Swap","SwapOrReload"},Labels={SwapOrReload="Swap or Reload"},Config={"Ragebot","Weapons","OnEmpty"}});end;local function N(P)local a=P:AddDropdown({Label="Evasion Mode",Options={"Off","Random"},Config={"Ragebot","Evasion","Mode"}});local e=P:AddGroup({Source=a,Option="Random"});e:AddToggle({Label="Character Origin",Config={"Ragebot","Evasion","Random","AnchorFromCharacter"}});e:AddSlider({Label="Base Radius",Min=5,Max=100000000,Config={"Ragebot","Evasion","Random","BaseRadius"}});e:AddSlider({Label="Random Factor",Min=0,Max=1,Step=0.1,Config={"Ragebot","Evasion","Random","RadiusRandomFactor"}});end;return function(W)l(W:AddSection({Title="Activation",Side="left"}));I(W:AddSection({Title="Weapon Strategy",Side="left"}));N(W:AddSection({Title="Evasion",Side="right"}));do local S=W:AddSection({Title="Anti-Aim",Side="right"});S:AddToggle({Label="Enable Anti-Aim",Config={"Ragebot","AntiAim","Enabled"}});S:AddDropdown({Label="Mode",Options={"Spin","Jitter","Static"},Config={"Ragebot","AntiAim","Mode"}});S:AddSlider({Label="Spin Speed",Min=1,Max=40,Step=0.5,Config={"Ragebot","AntiAim","Speed"}});S:AddSlider({Label="Jitter Amount",Min=5,Max=90,Step=1,Config={"Ragebot","AntiAim","JitterAmount"}});end;do local S=W:AddSection({Title="Status",Side="left"});S:AddToggle({Label="Ragebot Indicator",Config={"Ragebot","StatusIndicator","Enabled"}});S:AddSlider({Label="Offset X",Min=-800,Max=800,Step=1,Config={"Ragebot","StatusIndicator","OffsetX"}});S:AddSlider({Label="Offset Y",Min=-400,Max=800,Step=1,Config={"Ragebot","StatusIndicator","OffsetY"}});S:AddSlider({Label="Text Size",Min=12,Max=36,Config={"Ragebot","StatusIndicator","TextSize"}});S:AddColor({Label="Void Color",Config={"Ragebot","StatusIndicator","Color"}});S:AddColor({Label="Killing Color",Config={"Ragebot","StatusIndicator","KillingColor"}});S:AddDropdown({Label="Font",Options={"Gotham","ProggyTiny","SmallestPixel"},Labels={ProggyTiny="Proggy Tiny",SmallestPixel="Smallest Pixel"},Config={"Ragebot","StatusIndicator","Font"}});end;end;end
 
 tbl17.ih = function()
 local ih = tbl17.cache.ih
@@ -63292,6 +63292,9 @@ if arg._enabled == enabled then
 return
 end
 arg._enabled = enabled
+if not enabled then
+pcall(function() getgenv()._CatLessRagebotKilling = false end)
+end
 v112(workspace, "FallenPartsDestroyHeight", enabled and (0/0) or fallenPartsDestroyHeight)
 v107(v108, "DFIntS2PhysicsSenderRate", enabled and "120" or "15")
 v107(v108, "DFIntAssemblyHistoryBufferSize", enabled and "2147483648" or "15")
@@ -63306,16 +63309,19 @@ index2.Update = function(arg, arg2)
 local innerContext = arg._innerContext
 if innerContext == nil then
 arg:_Reset()
+pcall(function() getgenv()._CatLessRagebotKilling = false end)
 return
 end
 local fighterState = innerContext.FighterState
 if fighterState.EnvironmentId == nil or not arg._enabled then
 arg:_Reset()
+pcall(function() getgenv()._CatLessRagebotKilling = false end)
 return
 end
 local state = fighterState.Character.State
 if not state.Alive then
 arg:_Reset()
+pcall(function() getgenv()._CatLessRagebotKilling = false end)
 return
 end
 local characterController = innerContext.CharacterController
@@ -63333,8 +63339,10 @@ local target = arg._targetSelection:GetTarget()
 
 if target ~= nil then
 arg._lastTargetWorld = target.AliveState.RootPart.Position
+pcall(function() getgenv()._CatLessRagebotKilling = true end)
 else
 arg._lastTargetWorld = nil
+pcall(function() getgenv()._CatLessRagebotKilling = false end)
 end
 
 local v131 = arg:_Plan(arg2, v130, target, state.RootPart, clientCFrame, mode)
@@ -66505,5 +66513,253 @@ function K.Unload()
     pcall(function() GlobalTrove:Destroy() end)
     if getgenv().KiciaRebuild == K then getgenv().KiciaRebuild = nil end
 end
+
+-- ==================== CatLess Upcoming: Anti-Aim / Indicator ====================
+task.spawn(function()
+    local function waitStore()
+        for _ = 1, 160 do
+            local ok, store = pcall(function() return tbl17.bG() end)
+            if ok and store and store.Data and store.Data.Ragebot then return store end
+            task.wait(0.2)
+        end
+        return nil
+    end
+    local store = waitStore()
+    if not store then
+        warn("[CatLess Upcoming] store not ready")
+        return
+    end
+
+    local Players = game:GetService("Players")
+    local RunService = game:GetService("RunService")
+    local UIS = game:GetService("UserInputService")
+    local LocalPlayer = Players.LocalPlayer
+
+    pcall(function()
+        local r = store.Data.Ragebot
+        if type(r.AntiAim) ~= "table" then
+            r.AntiAim = { Enabled = false, Mode = "Spin", Speed = 12, JitterAmount = 35 }
+        end
+        if type(r.StatusIndicator) ~= "table" then
+            r.StatusIndicator = {
+                Enabled = false,
+                OffsetX = 0,
+                OffsetY = 72,
+                Color = Color3.fromRGB(160, 200, 230),
+                KillingColor = Color3.fromRGB(255, 90, 90),
+                TextSize = 18,
+                Font = "ProggyTiny",
+            }
+        else
+            local si = r.StatusIndicator
+            if si.OffsetX == nil then si.OffsetX = 0 end
+            if si.OffsetY == nil then si.OffsetY = 72 end
+            if typeof(si.Color) ~= "Color3" then si.Color = Color3.fromRGB(160, 200, 230) end
+            if typeof(si.KillingColor) ~= "Color3" then si.KillingColor = Color3.fromRGB(255, 90, 90) end
+            if si.TextSize == nil then si.TextSize = 18 end
+            if type(si.Font) ~= "string" then si.Font = "ProggyTiny" end
+        end
+    end)
+
+    local function resolveFont(name)
+        name = tostring(name or "ProggyTiny")
+        if name == "Gotham" then
+            return Enum.Font.Gotham, nil
+        elseif name == "SmallestPixel" then
+            local face = nil
+            pcall(function()
+                face = Font.new("rbxasset://fonts/families/Arcade.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+            end)
+            return Enum.Font.Arcade, face
+        else
+            local face = nil
+            pcall(function()
+                face = Font.new("rbxasset://fonts/families/RobotoMono.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+            end)
+            return Enum.Font.Code, face
+        end
+    end
+
+    local function applyFont(label, name)
+        local enumFont, face = resolveFont(name)
+        label.Font = enumFont
+        if face and label.FontFace ~= nil then
+            pcall(function() label.FontFace = face end)
+        end
+    end
+
+    -- Attack tracking: only "killing" while actually shooting/attacking
+    local attackHeld = false
+    local lastAttackAt = 0
+    local function markAttack()
+        lastAttackAt = tick()
+    end
+    pcall(function()
+        UIS.InputBegan:Connect(function(inp, gp)
+            if gp then return end
+            if inp.UserInputType == Enum.UserInputType.MouseButton1
+                or inp.KeyCode == Enum.KeyCode.ButtonR2 then
+                attackHeld = true
+                markAttack()
+            end
+        end)
+        UIS.InputEnded:Connect(function(inp)
+            if inp.UserInputType == Enum.UserInputType.MouseButton1
+                or inp.KeyCode == Enum.KeyCode.ButtonR2 then
+                attackHeld = false
+            end
+        end)
+    end)
+    local function hookTool(tool)
+        if not tool or not tool:IsA("Tool") then return end
+        tool.Activated:Connect(function()
+            attackHeld = true
+            markAttack()
+            task.delay(0.12, function()
+                if not UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+                    attackHeld = false
+                end
+            end)
+        end)
+    end
+    pcall(function()
+        local function hookChar(char)
+            for _, ch in ipairs(char:GetChildren()) do hookTool(ch) end
+            char.ChildAdded:Connect(hookTool)
+        end
+        if LocalPlayer.Character then hookChar(LocalPlayer.Character) end
+        LocalPlayer.CharacterAdded:Connect(hookChar)
+    end)
+
+    local function isAttacking()
+        if attackHeld then return true end
+        if UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then return true end
+        if (tick() - lastAttackAt) < 0.18 then return true end
+        return false
+    end
+
+    local indGui, indLabel, indStroke
+    local function destroyIndicator()
+        if indGui then pcall(function() indGui:Destroy() end) end
+        indGui, indLabel, indStroke = nil, nil, nil
+    end
+    local function ensureIndicator(on)
+        if on then
+            if not indGui then
+                indGui = Instance.new("ScreenGui")
+                indGui.Name = "CatLessRageIndicator"
+                indGui.ResetOnSpawn = false
+                indGui.IgnoreGuiInset = true
+                indGui.DisplayOrder = 250
+                pcall(function() indGui.Parent = (gethui and gethui()) or game:GetService("CoreGui") end)
+                indLabel = Instance.new("TextLabel")
+                indLabel.BackgroundTransparency = 1
+                indLabel.AnchorPoint = Vector2.new(0.5, 0)
+                indLabel.Size = UDim2.fromOffset(480, 36)
+                indLabel.TextXAlignment = Enum.TextXAlignment.Center
+                indLabel.TextStrokeTransparency = 1 -- outline via UIStroke
+                indLabel.Text = "ragebot: void..."
+                indLabel.Parent = indGui
+                indStroke = Instance.new("UIStroke")
+                indStroke.Name = "Outline"
+                indStroke.Thickness = 1.5
+                indStroke.Color = Color3.new(0, 0, 0)
+                indStroke.Transparency = 0.15
+                indStroke.LineJoinMode = Enum.LineJoinMode.Round
+                indStroke.Parent = indLabel
+                applyFont(indLabel, "ProggyTiny")
+            end
+        else
+            destroyIndicator()
+        end
+    end
+
+    local function hasEnemyInRange()
+        local char = LocalPlayer.Character
+        local hrp = char and char:FindFirstChild("HumanoidRootPart")
+        if not hrp then return false end
+        local cam = workspace.CurrentCamera
+        if not cam then return false end
+        for _, plr in ipairs(Players:GetPlayers()) do
+            if plr ~= LocalPlayer then
+                local c = plr.Character
+                local hum = c and c:FindFirstChildOfClass("Humanoid")
+                local root = c and c:FindFirstChild("HumanoidRootPart")
+                if hum and hum.Health > 0 and root then
+                    if (root.Position - hrp.Position).Magnitude < 300 then
+                        local sp, onScreen = cam:WorldToViewportPoint(root.Position)
+                        if onScreen and sp.Z > 0 then return true end
+                    end
+                end
+            end
+        end
+        return false
+    end
+
+    local aaAngle = 0
+    local function stepAntiAim(dt)
+        local r = store.Data.Ragebot
+        local aa = r and r.AntiAim
+        if not aa or not aa.Enabled or not r.Enabled then return end
+        local char = LocalPlayer.Character
+        local hrp = char and char:FindFirstChild("HumanoidRootPart")
+        local hum = char and char:FindFirstChildOfClass("Humanoid")
+        if not hrp or not hum or hum.Health <= 0 then return end
+        local mode = aa.Mode or "Spin"
+        local speed = tonumber(aa.Speed) or 12
+        local jitter = tonumber(aa.JitterAmount) or 35
+        local pos = hrp.Position
+        if mode == "Spin" then
+            aaAngle = aaAngle + dt * speed
+            local look = hrp.CFrame.LookVector
+            local flat = Vector3.new(look.X, 0, look.Z)
+            if flat.Magnitude < 0.05 then flat = Vector3.new(0, 0, -1) else flat = flat.Unit end
+            hrp.CFrame = CFrame.lookAt(pos, pos + flat) * CFrame.Angles(0, aaAngle, 0)
+        elseif mode == "Jitter" then
+            local yaw = math.rad((math.noise(tick() * speed) * 2 - 1) * jitter)
+            local lv = hrp.CFrame.LookVector
+            local flat = Vector3.new(lv.X, 0, lv.Z)
+            if flat.Magnitude < 0.05 then flat = Vector3.new(0, 0, -1) else flat = flat.Unit end
+            hrp.CFrame = CFrame.lookAt(pos, pos + flat) * CFrame.Angles(0, yaw, 0)
+        else
+            local cam = workspace.CurrentCamera
+            if not cam then return end
+            local look = cam.CFrame.LookVector
+            local away = Vector3.new(-look.X, 0, -look.Z)
+            if away.Magnitude < 0.05 then return end
+            hrp.CFrame = CFrame.lookAt(pos, pos + away.Unit)
+        end
+    end
+
+    RunService.RenderStepped:Connect(function(dt)
+        local r = store.Data.Ragebot
+        local si = r and r.StatusIndicator
+        local indOn = si and si.Enabled == true
+        ensureIndicator(indOn)
+        if indOn and indLabel then
+            -- killing only when ragebot itself has an active target (not player click)
+            local killing = getgenv()._CatLessRagebotKilling == true
+            indLabel.Text = killing and "ragebot: killing..." or "ragebot: void..."
+            local voidC = si.Color
+            local killC = si.KillingColor
+            if typeof(voidC) ~= "Color3" then voidC = Color3.fromRGB(160, 200, 230) end
+            if typeof(killC) ~= "Color3" then killC = Color3.fromRGB(255, 90, 90) end
+            indLabel.TextColor3 = killing and killC or voidC
+            indLabel.TextSize = tonumber(si.TextSize) or 18
+            applyFont(indLabel, si.Font or "ProggyTiny")
+            local ox = tonumber(si.OffsetX) or 0
+            local oy = tonumber(si.OffsetY) or 72
+            indLabel.Position = UDim2.new(0.5, ox, 0, oy)
+            if indStroke then
+                indStroke.Thickness = 1.6
+                indStroke.Color = Color3.new(0, 0, 0)
+                indStroke.Transparency = 0.1
+            end
+        end
+        pcall(stepAntiAim, dt)
+    end)
+
+    print("[CatLess Upcoming] Anti-Aim / Indicator ready")
+end)
 
 tbl17.j1()(boot)
