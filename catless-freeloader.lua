@@ -66762,4 +66762,264 @@ task.spawn(function()
     print("[CatLess Upcoming] Anti-Aim / Indicator ready")
 end)
 
+
+
+-- ==================== CatLess Notifications (Linoria-compact) ====================
+task.spawn(function()
+    local Players = game:GetService("Players")
+    local TweenService = game:GetService("TweenService")
+    local TextService = game:GetService("TextService")
+    local CoreGui = game:GetService("CoreGui")
+
+    local gui, holder
+    local stack = {}
+    local MAX = 6
+    local FONT = Enum.Font.Code
+    local SIZE = 13
+
+    local function isMobile()
+        local cam = workspace.CurrentCamera
+        local vs = cam and cam.ViewportSize or Vector2.new(1280, 720)
+        return vs.X < 700 or vs.Y < 500
+    end
+
+    local function parentGui()
+        local ok, h = pcall(function() return (gethui and gethui()) or CoreGui end)
+        return (ok and h) or CoreGui
+    end
+
+    local function ensureGui()
+        if gui and gui.Parent then return end
+        gui = Instance.new("ScreenGui")
+        gui.Name = "CatLessNotifications"
+        gui.ResetOnSpawn = false
+        gui.IgnoreGuiInset = true
+        gui.DisplayOrder = 10000
+        gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        pcall(function() gui.Parent = parentGui() end)
+        if not gui.Parent then
+            pcall(function() gui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui") end)
+        end
+        holder = Instance.new("Frame")
+        holder.BackgroundTransparency = 1
+        holder.Size = UDim2.fromScale(1, 1)
+        holder.Parent = gui
+    end
+
+    local function parseMessage(arg2)
+        if type(arg2) == "string" then
+            return arg2
+        end
+        if type(arg2) == "table" then
+            if arg2.Title or arg2.Description or arg2.Text then
+                local t = tostring(arg2.Title or "")
+                local d = tostring(arg2.Description or arg2.Text or "")
+                if t ~= "" and d ~= "" then return t .. " · " .. d end
+                return (t ~= "" and t) or d
+            end
+            local parts = {}
+            for _, seg in ipairs(arg2) do
+                if type(seg) == "table" and seg.Text then
+                    table.insert(parts, tostring(seg.Text))
+                elseif type(seg) == "string" then
+                    table.insert(parts, seg)
+                end
+            end
+            local body = table.concat(parts, " ")
+            return body ~= "" and body or tostring(arg2)
+        end
+        return tostring(arg2)
+    end
+
+    local function notifSettings()
+        local side, offset = "TopRight", 0
+        pcall(function()
+            local store = tbl17.bG()
+            local n = store and store.Data and store.Data.Notifications
+            if n then
+                if type(n.Side) == "string" then side = n.Side
+                elseif type(n.Position) == "string" then side = n.Position end
+                if type(n.Offset) == "number" then offset = n.Offset end
+            end
+        end)
+        return side, offset
+    end
+
+    local function layoutStack()
+        local side, offset = notifSettings()
+        local s = string.lower(tostring(side or "TopRight"))
+        local gap = 4
+        local isCenter = (s == "center" or s:find("center", 1, true) ~= nil)
+        local isCross = (s == "crosshair" or s:find("cross", 1, true) ~= nil)
+        local top = s:find("top", 1, true) ~= nil
+        local bottom = s:find("bottom", 1, true) ~= nil
+        local left = s:find("left", 1, true) ~= nil
+        local right = s:find("right", 1, true) ~= nil
+
+        -- total height of stack for centering
+        local totalH = 0
+        for _, item in ipairs(stack) do
+            if item.frame and item.frame.Parent then
+                totalH = totalH + item.frame.Size.Y.Offset + gap
+            end
+        end
+        if totalH > 0 then totalH = totalH - gap end
+
+        local yCursor = 0
+        for i, item in ipairs(stack) do
+            local frame = item.frame
+            if frame and frame.Parent then
+                local h = frame.Size.Y.Offset
+                local w = frame.Size.X.Offset
+                if isCross or isCenter then
+                    -- centered on screen; Crosshair uses Offset as vertical shift from center
+                    frame.AnchorPoint = Vector2.new(0.5, 0.5)
+                    local stackOffset = -totalH / 2 + yCursor + h / 2
+                    local yOff = isCross and (tonumber(offset) or 0) or 0
+                    frame.Position = UDim2.new(0.5, 0, 0.5, stackOffset + yOff)
+                    yCursor = yCursor + h + gap
+                elseif top or (not bottom and not left and not right) then
+                    frame.AnchorPoint = Vector2.new(left and 0 or 1, 0)
+                    frame.Position = UDim2.new(left and 0 or 1, left and 8 or -8, 0, 8 + yCursor)
+                    yCursor = yCursor + h + gap
+                else
+                    -- bottom corners
+                    frame.AnchorPoint = Vector2.new(left and 0 or 1, 1)
+                    frame.Position = UDim2.new(left and 0 or 1, left and 8 or -8, 1, -(8 + yCursor))
+                    yCursor = yCursor + h + gap
+                end
+            end
+        end
+    end
+
+    local function dismiss(item)
+        if item._dead then return end
+        item._dead = true
+        for i, s in ipairs(stack) do
+            if s == item then table.remove(stack, i) break end
+        end
+        local frame = item.frame
+        if frame then
+            pcall(function()
+                TweenService:Create(frame, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+                    Size = UDim2.fromOffset(0, frame.Size.Y.Offset),
+                }):Play()
+            end)
+            task.delay(0.22, function()
+                pcall(function() frame:Destroy() end)
+                layoutStack()
+            end)
+        end
+    end
+
+    local function show(arg2, arg3)
+        arg3 = arg3 or {}
+        local enabled = true
+        pcall(function()
+            local store = tbl17.bG()
+            local n = store and store.Data and store.Data.Notifications
+            if n and n.Enabled == false then enabled = false end
+        end)
+        if not enabled then return end
+
+        ensureGui()
+        local text = parseMessage(arg2)
+        if not text or text == "" then return end
+        local lifetime = tonumber(arg3.Time or arg3.Duration or arg3.lifetime) or 4
+        local accent = arg3.Color
+        if typeof(accent) ~= "Color3" then
+            accent = Color3.fromRGB(100, 160, 255)
+        end
+
+        local mobile = isMobile()
+        local fontSize = mobile and 11 or SIZE
+        local padX = mobile and 8 or 10
+        local padY = mobile and 4 or 5
+        local maxW = mobile and 200 or 320
+
+        local bounds = TextService:GetTextSize(text, fontSize, FONT, Vector2.new(maxW - padX * 2, 200))
+        local w = math.clamp(bounds.X + padX * 2 + 4, 80, maxW)
+        local h = math.clamp(bounds.Y + padY * 2, mobile and 18 or 22, mobile and 40 or 48)
+
+        while #stack >= MAX do
+            dismiss(stack[1])
+        end
+
+        local frame = Instance.new("Frame")
+        frame.Name = "Toast"
+        frame.BorderSizePixel = 0
+        frame.BackgroundColor3 = Color3.fromRGB(12, 12, 14)
+        frame.BackgroundTransparency = 0.12
+        frame.ClipsDescendants = true
+        frame.Size = UDim2.fromOffset(0, h) -- animate width
+        frame.Parent = holder
+
+        local stroke = Instance.new("UIStroke")
+        stroke.Color = Color3.fromRGB(35, 35, 42)
+        stroke.Thickness = 1
+        stroke.Transparency = 0.35
+        stroke.Parent = frame
+
+        -- thin bottom accent (Linoria-style)
+        local bar = Instance.new("Frame")
+        bar.Name = "Bar"
+        bar.BorderSizePixel = 0
+        bar.BackgroundColor3 = accent
+        bar.Size = UDim2.new(1, 0, 0, 2)
+        bar.Position = UDim2.new(0, 0, 1, -2)
+        bar.Parent = frame
+
+        local label = Instance.new("TextLabel")
+        label.BackgroundTransparency = 1
+        label.Position = UDim2.fromOffset(padX, 0)
+        label.Size = UDim2.new(1, -padX * 2, 1, -2)
+        label.Font = FONT
+        label.TextSize = fontSize
+        label.TextXAlignment = Enum.TextXAlignment.Left
+        label.TextYAlignment = Enum.TextYAlignment.Center
+        label.TextColor3 = Color3.fromRGB(230, 230, 235)
+        label.TextStrokeTransparency = 0.7
+        label.Text = text
+        label.TextWrapped = true
+        label.Parent = frame
+
+        local item = { frame = frame, _dead = false }
+        table.insert(stack, item)
+        layoutStack()
+
+        local tw = TweenService:Create(frame, TweenInfo.new(0.28, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Size = UDim2.fromOffset(w, h),
+        })
+        tw:Play()
+        task.delay(0.28, function()
+            layoutStack()
+        end)
+
+        task.delay(lifetime, function()
+            dismiss(item)
+        end)
+    end
+
+    getgenv().CatLessNotify = show
+
+    for _ = 1, 80 do
+        local ok, mod = pcall(function() return tbl17.aB() end)
+        if ok and mod and type(mod.get) == "function" then
+            local svc
+            pcall(function() svc = mod.get() end)
+            if svc and type(svc.Notify) == "function" then
+                local oldNotify = svc.Notify
+                svc.Notify = function(self, a, b)
+                    pcall(show, a, b)
+                    pcall(oldNotify, self, a, b)
+                end
+                print("[CatLess] Notifications hooked (Linoria-compact)")
+                break
+            end
+        end
+        task.wait(0.25)
+    end
+end)
+
+
 tbl17.j1()(boot)
