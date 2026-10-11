@@ -60399,7 +60399,7 @@ return je.c
 end
 end
 do -- jf
-local function fn35()local I,W= tbl17 .bG(), tbl17 .aE(); tbl17 .hN();local N,P,a,e,c,E,p,T= tbl17 .h_(), tbl17 .ij(), tbl17 .ip(), tbl17 .n(), tbl17 .iw(), tbl17 .i_(), tbl17 .je(),cloneref(game:GetService("Players")).LocalPlayer;return function(l)if getgenv().KhForceMobileUi==true then W.ForceMobileLayout();end;local t=W.Menu.new({Icon=K.Logo,Title=string.format("CatLess v1.8.4 | Rivals | %s",tostring("Premium Build")),Directory="kiciacat premium/rivals",Config=l.ReactiveStoreAdapter,ColorAnimation=l.ColorAnimation,Persistence=I,State=l.GeneralState,StateData=l.GeneralStateData,OnUnload=function()e:Destroy();end});e:Add(t);local I=l.PlayerIdentities;t:SetWatermarkUsername(I:GetPresented(T));e:Connect(I.IdentityChanged,function(W)if W==T then t:SetWatermarkUsername(I:GetPresented(T));end;end);P(l,t);E(l,t);c(l,t);N(l,t);p(l,t);a(l,t);t:AddSettingsTab();local _silent=l.GeneralStateData~=nil and l.GeneralStateData.SilentLoad==true;t:SetVisible(not _silent,true);if _silent then task.defer(function()pcall(function()t:SetVisible(false,true)end)end);task.delay(0.35,function()pcall(function()t:SetVisible(false,true)end)end);end;end;end
+local function fn35()local I,W= tbl17 .bG(), tbl17 .aE(); tbl17 .hN();local N,P,a,e,c,E,p,T= tbl17 .h_(), tbl17 .ij(), tbl17 .ip(), tbl17 .n(), tbl17 .iw(), tbl17 .i_(), tbl17 .je(),cloneref(game:GetService("Players")).LocalPlayer;return function(l)if getgenv().KhForceMobileUi==true then W.ForceMobileLayout();end;local t=W.Menu.new({Icon=K.Logo,Title=(function()local n="Unknown";pcall(function()local mps=game:GetService("MarketplaceService");local info=mps:GetProductInfo(game.PlaceId);if info and type(info.Name)=="string"and info.Name~=""then n=info.Name;elseif type(game.Name)=="string"and game.Name~=""then n=game.Name;end;end);if #n>28 then n=n:sub(1,25).."..." end;return string.format("CatLess v1.8.4 | %s | %s",n,tostring("Premium Build")) end)(),Directory="kiciacat premium/rivals",Config=l.ReactiveStoreAdapter,ColorAnimation=l.ColorAnimation,Persistence=I,State=l.GeneralState,StateData=l.GeneralStateData,OnUnload=function()e:Destroy();end});e:Add(t);local I=l.PlayerIdentities;t:SetWatermarkUsername(I:GetPresented(T));e:Connect(I.IdentityChanged,function(W)if W==T then t:SetWatermarkUsername(I:GetPresented(T));end;end);P(l,t);E(l,t);c(l,t);N(l,t);p(l,t);a(l,t);t:AddSettingsTab();local _silent=l.GeneralStateData~=nil and l.GeneralStateData.SilentLoad==true;t:SetVisible(not _silent,true);if _silent then task.defer(function()pcall(function()t:SetVisible(false,true)end)end);task.delay(0.35,function()pcall(function()t:SetVisible(false,true)end)end);end;end;end
 
 tbl17.jf = function()
 local jf = tbl17.cache.jf
@@ -67053,4 +67053,133 @@ task.spawn(function()
 end)
 
 
-tbl17.j1()(boot)
+
+
+-- ==================== CatLess game support gate ====================
+do
+    -- Universe / place IDs (GameId = universe)
+    local ALLOWED_GAME_IDS = {
+        [6035872082] = "rivals",   -- Rivals
+        [2788229376] = "dahood",   -- Da Hood
+        [142823291]  = "mm2",      -- Murder Mystery 2
+        [3233893879] = "dahood",   -- Da Hood related (if any)
+    }
+    -- PlaceId extras (some hubs use different places under same brand)
+    local ALLOWED_PLACE_IDS = {
+        [2788229376] = "dahood",
+        [142823291] = "mm2",
+        [6035872082] = "rivals",
+    }
+
+    local function classifyByName(name)
+        name = string.lower(tostring(name or ""))
+        -- order matters: more specific first
+        if name:find("murder mystery ffa", 1, true) or name:find("mm ffa", 1, true) or name:find("mmffa", 1, true) then
+            return "mmffa"
+        end
+        if name:find("murder mystery 2", 1, true) or name:find("murder mystery2", 1, true)
+            or name:find("mm2", 1, true) or name == "murder mystery" then
+            -- plain "murder mystery" without 2 is often MM2 lobby naming
+            if name:find("ffa", 1, true) then return "mmffa" end
+            return "mm2"
+        end
+        if name:find("murder", 1, true) and name:find("ffa", 1, true) then
+            return "mmffa"
+        end
+        if name:find("rivals", 1, true) then
+            return "rivals"
+        end
+        if name:find("da hood", 1, true) or name:find("dahood", 1, true) or name:find("da-hood", 1, true) then
+            return "dahood"
+        end
+        -- hood alone is risky; only if starts/branded
+        if name:find("the hood", 1, true) then return "dahood" end
+        return nil
+    end
+
+    local function detectGame()
+        if getgenv().CatLess_ForceAllow == true then
+            return "forced"
+        end
+        local byId = ALLOWED_GAME_IDS[game.GameId] or ALLOWED_PLACE_IDS[game.PlaceId] or ALLOWED_GAME_IDS[game.PlaceId]
+        if byId then return byId end
+
+        local names = { tostring(game.Name or "") }
+        pcall(function()
+            local info = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+            if info then
+                if type(info.Name) == "string" then table.insert(names, info.Name) end
+                if type(info.Description) == "string" then table.insert(names, info.Description:sub(1, 80)) end
+            end
+        end)
+        -- also try universe product info
+        pcall(function()
+            local info = game:GetService("MarketplaceService"):GetProductInfo(game.GameId, Enum.InfoType.Game)
+            if info and type(info.Name) == "string" then table.insert(names, info.Name) end
+        end)
+
+        for _, n in ipairs(names) do
+            local kind = classifyByName(n)
+            if kind then return kind end
+        end
+        return nil
+    end
+
+    local kind = detectGame()
+    getgenv().CatLess_SupportedGame = kind
+
+    if not kind then
+        local msg = "this game is not supported, join to discord for help.\ndiscord.gg/4vJvMrWVZ2"
+        pcall(function()
+            local lp = game:GetService("Players").LocalPlayer
+            if lp then lp:Kick(msg) end
+        end)
+        pcall(function()
+            game:GetService("Players").LocalPlayer:Kick(msg)
+        end)
+        error("[CatLess] " .. msg, 0)
+    end
+
+    -- Non-Rivals allowed games: boot may miss Rivals remotes; don't hard-crash the executor
+    getgenv().CatLess_IsRivals = (kind == "rivals")
+end
+
+
+
+do
+    local ok, err = pcall(function()
+        tbl17.j1()(boot)
+    end)
+    if not ok then
+        warn("[CatLess] boot error:", err)
+        pcall(function()
+            if getgenv().CatLess_IsRivals == false then
+                local msg = "CatLess loaded gate OK, but full modules failed on this place (Rivals-oriented). discord.gg/4vJvMrWVZ2"
+                if getgenv().CatLessNotify then getgenv().CatLessNotify(msg) end
+                -- small on-screen note, do NOT kick allowed games
+                local pg = (gethui and gethui()) or game:GetService("CoreGui")
+                local gui = Instance.new("ScreenGui")
+                gui.Name = "CatLessBootWarn"
+                gui.ResetOnSpawn = false
+                gui.DisplayOrder = 99999
+                gui.Parent = pg
+                local t = Instance.new("TextLabel")
+                t.Size = UDim2.new(1, 0, 0, 40)
+                t.Position = UDim2.new(0, 0, 0, 8)
+                t.BackgroundTransparency = 0.3
+                t.BackgroundColor3 = Color3.fromRGB(20, 20, 24)
+                t.Font = Enum.Font.Code
+                t.TextSize = 13
+                t.TextColor3 = Color3.fromRGB(255, 200, 120)
+                t.Text = "CatLess: allowed game, but this build is mainly Rivals - modules failed. discord.gg/4vJvMrWVZ2"
+                t.Parent = gui
+            else
+                error(err)
+            end
+        end)
+        if getgenv().CatLess_IsRivals ~= false then
+            error(err)
+        end
+    end
+end
+
